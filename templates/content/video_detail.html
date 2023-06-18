@@ -1,0 +1,571 @@
+{% extends "base.html" %}
+{% load cool_num %}
+{% load crispy_forms_tags %}
+{% load static i18n %}
+
+{% block content %}
+   <!--  <section class="text-gray-700 body-font">
+    <div class="py-16 flex flex-wrap">
+        <div class="flex flex-wrap w-full">
+        <div class="hidden md:block md:w-1/4 md:pr-10 md:py-6">
+            {% for video in video.video.videos.all %}
+                {% include 'content/snippets/video_step.html' with video=video %}
+            {% endfor %}
+        </div>
+        <div class="md:w-3/4 md:mt-0">
+            {% if has_permission %}
+            <iframe src="https://player.vimeo.com/video/{{ video.vimeo_id }}" width="640" height="480" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+            {% else %}
+            <p>You do not have permission to view this video. Upgrade your subscription to start</p>
+            {% endif %}
+        </div>
+    </div>
+    </section> -->
+
+
+
+<div class="max-w-screen-xl mx-auto px-4">
+    <div class="flex justify-between">
+        <div>
+            <h1 class="text-2xl text-gray-700 dark:text-white ">
+               {{ video.title }}
+            </h1>
+        </div>
+
+        <div class=''>
+          <div class='flex inline-flex gap-2'>
+            <a href="" class="border-2 border-gray-700 hover:text-gray-500 dark:text-white text-gray-700 rounded-full  px-5 pl-3 py-1 text-center mr-3 md:mr-0 hidden sm:block">See the ads</a>
+            <a href="" class="border-2 border-gray-700 hover:text-gray-500 dark:text-white text-gray-700 rounded-full  px-5 pl-3 py-1 text-center mr-3 md:mr-0 hidden sm:block">See the Shop</a>
+            <form method="POST">
+                {% csrf_token %}
+                 {{ form|crispy }} 
+                <button type="submit" class="border-2 border-gray-700 hover:text-gray-500 dark:text-white text-gray-700 rounded-full  px-5 pl-3 py-1 text-center mr-3 md:mr-0 hidden sm:block">Add to favorites</button>
+            </form>
+          </div>
+        </div>
+    </div>
+
+    <div class="flex justify-between py-2">
+        <div>
+            <span class="text-gray-700 dark:text-white">Created : {{ video.created_at|timesince}} ago</span>
+        </div>
+        <div>
+            <span class="text-gray-700 dark:text-white">
+              <span class="text-gray-700 dark:text-white">
+                Last updates : {{ video.updated_at|date:"N j, Y,"}}
+              </span>
+            </span>
+        </div>
+    </div>
+        
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 md:gap-6 mb-6">
+      <div class="rounded-md shadow-md py-2">
+          <img src="{{ video.product_thumbnail.url }}" alt="" class="rounded-lg w-full object-cover">
+      </div>
+      <div class="rounded-md shadow-md p-2">
+          <div class="border border-gray-200  dark:border-gray-600 rounded-lg p-2 mb-4 ">
+              <div class="flex justify-between mb-2">
+                <p class="text-gray-700 dark:text-white ">
+                  Ads data
+                </p>
+                <a href="{{ othershopifylinks.links }}" target="blank"  class="hover:text-gray-500 dark:text-white text-gray-700 rounded-full   hidden sm:block">
+                    <div class='flex inline-flex gap-2'>
+                      <p class="dark:text-white text-gray-700">see page</p>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle" viewBox="0 0 16 16">
+                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                        <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+                      </svg>
+                    </div>
+                </a>
+              </div>
+              <div class="grid grid-cols-2 md:grid-cols-3 gap-6 mb-2">
+                  <div class="flex items-center gap-2 px-4">
+                      <span class="rounded-full dark:text-white p-1 text-gray-700">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-hand-thumbs-up-fill" viewBox="0 0 16 16">
+                          <path d="M6.956 1.745C7.021.81 7.908.087 8.864.325l.261.066c.463.116.874.456 1.012.965.22.816.533 2.511.062 4.51a9.84 9.84 0 0 1 .443-.051c.713-.065 1.669-.072 2.516.21.518.173.994.681 1.2 1.273.184.532.16 1.162-.234 1.733.058.119.103.242.138.363.077.27.113.567.113.856 0 .289-.036.586-.113.856-.039.135-.09.273-.16.404.169.387.107.819-.003 1.148a3.163 3.163 0 0 1-.488.901c.054.152.076.312.076.465 0 .305-.089.625-.253.912C13.1 15.522 12.437 16 11.5 16H8c-.605 0-1.07-.081-1.466-.218a4.82 4.82 0 0 1-.97-.484l-.048-.03c-.504-.307-.999-.609-2.068-.722C2.682 14.464 2 13.846 2 13V9c0-.85.685-1.432 1.357-1.615.849-.232 1.574-.787 2.132-1.41.56-.627.914-1.28 1.039-1.639.199-.575.356-1.539.428-2.59z"/>
+                        </svg>
+                      </span>
+
+                    <div>
+                      <p class="text-gray-700 dark:text-white"> {{ video.facebook_like|cool_num }}</p>
+
+                      <p class=" text-gray-700 dark:text-white">Likes</p>
+                    </div>
+                  </div>
+                  <div class="flex items-center gap-2 px-4">
+                    <span class="rounded-full dark:text-white p-1 text-gray-700">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-chat-dots-fill" viewBox="0 0 16 16">
+                        <path d="M16 8c0 3.866-3.582 7-8 7a9.06 9.06 0 0 1-2.347-.306c-.584.296-1.925.864-4.181 1.234-.2.032-.352-.176-.273-.362.354-.836.674-1.95.77-2.966C.744 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7zM5 8a1 1 0 1 0-2 0 1 1 0 0 0 2 0zm4 0a1 1 0 1 0-2 0 1 1 0 0 0 2 0zm3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+                      </svg>
+                    </span>
+
+                    <div>
+                      <p class="text-gray-700 dark:text-white">{{ video.facebook_comment|cool_num }}</p>
+                      <p class=" text-gray-700 dark:text-white">Comments</p>
+                    </div>
+                  </div>
+                  <div class="flex items-center gap-2 px-4">
+                    <span class="rounded-full dark:text-white p-1 text-gray-700">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
+                        <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+                        <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
+                      </svg>
+                    </span>
+
+                    <div>
+                      <p class="text-gray-700 dark:text-white">{{ video.facebook_views|cool_num }}</p>
+
+                      <p class=" text-gray-700 dark:text-white">Views</p>
+                    </div>
+                  </div>
+              </div>
+          </div>
+          <!-- <div class="flex justify-between ...">
+            <div class="flex items-center gap-2">
+                  <span class="rounded-full dark:text-white p-1 text-gray-700">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-hand-thumbs-up-fill" viewBox="0 0 16 16">
+                      <path d="M6.956 1.745C7.021.81 7.908.087 8.864.325l.261.066c.463.116.874.456 1.012.965.22.816.533 2.511.062 4.51a9.84 9.84 0 0 1 .443-.051c.713-.065 1.669-.072 2.516.21.518.173.994.681 1.2 1.273.184.532.16 1.162-.234 1.733.058.119.103.242.138.363.077.27.113.567.113.856 0 .289-.036.586-.113.856-.039.135-.09.273-.16.404.169.387.107.819-.003 1.148a3.163 3.163 0 0 1-.488.901c.054.152.076.312.076.465 0 .305-.089.625-.253.912C13.1 15.522 12.437 16 11.5 16H8c-.605 0-1.07-.081-1.466-.218a4.82 4.82 0 0 1-.97-.484l-.048-.03c-.504-.307-.999-.609-2.068-.722C2.682 14.464 2 13.846 2 13V9c0-.85.685-1.432 1.357-1.615.849-.232 1.574-.787 2.132-1.41.56-.627.914-1.28 1.039-1.639.199-.575.356-1.539.428-2.59z"/>
+                    </svg>
+                  </span>
+
+                <div>
+                  <p class="text-gray-700 dark:text-white"> {{ video.facebook_like|cool_num }}</p>
+
+                  <p class=" text-gray-700 dark:text-white">Likes</p>
+                </div>
+              </div>
+              <div class="flex items-center gap-2 px-4">
+                <span class="rounded-full dark:text-white p-1 text-gray-700">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-chat-dots-fill" viewBox="0 0 16 16">
+                    <path d="M16 8c0 3.866-3.582 7-8 7a9.06 9.06 0 0 1-2.347-.306c-.584.296-1.925.864-4.181 1.234-.2.032-.352-.176-.273-.362.354-.836.674-1.95.77-2.966C.744 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7zM5 8a1 1 0 1 0-2 0 1 1 0 0 0 2 0zm4 0a1 1 0 1 0-2 0 1 1 0 0 0 2 0zm3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+                  </svg>
+                </span>
+
+                <div>
+                  <p class="text-gray-700 dark:text-white">{{ video.facebook_comment|cool_num }}</p>
+                  <p class=" text-gray-700 dark:text-white">Comments</p>
+                </div>
+              </div>
+              <div class="flex items-center gap-2 px-4">
+                <span class="rounded-full dark:text-white p-1 text-gray-700">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
+                    <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+                    <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
+                  </svg>
+                </span>
+
+                <div>
+                  <p class="text-gray-700 dark:text-white">{{ video.facebook_views|cool_num }}</p>
+
+                  <p class=" text-gray-700 dark:text-white">Views</p>
+                </div>
+              </div>
+          </div> -->
+
+          <div class="border border-gray-200  dark:border-gray-600 rounded-lg p-2 mb-4 ">
+              <div class="flex justify-between mb-2">
+                <p class="text-gray-700 dark:text-white ">
+                  Aliexpress data
+                </p>
+                <a href="{{ othershopifylinks.links }}" target="blank"  class="hover:text-gray-500 dark:text-white text-gray-700 rounded-full   hidden sm:block">
+                    <div class='flex inline-flex gap-2'>
+                      <p class="dark:text-white text-gray-700">see page</p>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle" viewBox="0 0 16 16">
+                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                        <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+                      </svg>
+                    </div>
+                </a>
+              </div>
+              <div class="grid grid-cols-2 md:grid-cols-3 gap-6 mb-2">
+                  <div class="flex items-center gap-2 px-4">
+                    <span class="rounded-full dark:text-white p-1 text-gray-700">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-bag-heart-fill" viewBox="0 0 16 16">
+                        <path d="M11.5 4v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5ZM8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1Zm0 6.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132Z"/>
+                      </svg>
+                    </span>
+
+                    <div>
+                      <p class="text-gray-700 dark:text-white">{{ video.aliexpress_order|cool_num }}</p>
+
+                      <p class=" text-gray-700 dark:text-white">Order</p>
+                    </div>
+                  </div>
+                  <div class="flex items-center gap-2 px-4">
+                    <span class="rounded-full dark:text-white p-1 text-gray-700">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-currency-dollar" viewBox="0 0 16 16">
+                        <path d="M4 10.781c.148 1.667 1.513 2.85 3.591 3.003V15h1.043v-1.216c2.27-.179 3.678-1.438 3.678-3.3 0-1.59-.947-2.51-2.956-3.028l-.722-.187V3.467c1.122.11 1.879.714 2.07 1.616h1.47c-.166-1.6-1.54-2.748-3.54-2.875V1H7.591v1.233c-1.939.23-3.27 1.472-3.27 3.156 0 1.454.966 2.483 2.661 2.917l.61.162v4.031c-1.149-.17-1.94-.8-2.131-1.718H4zm3.391-3.836c-1.043-.263-1.6-.825-1.6-1.616 0-.944.704-1.641 1.8-1.828v3.495l-.2-.05zm1.591 1.872c1.287.323 1.852.859 1.852 1.769 0 1.097-.826 1.828-2.2 1.939V8.73l.348.086z"/>
+                      </svg>
+                    </span>
+
+                    <div>
+                      <p class="text-gray-700 dark:text-white">${{ video.aliexpress_total_sale|cool_num }}</p>
+
+                      <p class=" text-gray-700 dark:text-white">Sales</p>
+                    </div>
+                  </div>
+                  <div class="flex items-center gap-2 px-4">
+                    <span class="rounded-full dark:text-white p-1 text-gray-700">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-credit-card-2-back-fill" viewBox="0 0 16 16">
+                        <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v5H0V4zm11.5 1a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h2a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-2zM0 11v1a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-1H0z"/>
+                      </svg>
+                    </span>
+
+                    <div>
+                      <p class="text-gray-700 dark:text-white">${{ video.aliexpress_price }}</p>
+
+                      <p class=" text-gray-700 dark:text-white">Cost</p>
+                    </div>
+                  </div>
+              </div>
+          </div>
+
+          <div class="border border-gray-200  dark:border-gray-600 rounded-lg p-2 mb-4 ">
+              <div class="flex justify-between mb-2">
+                <p class="text-gray-700 dark:text-white ">
+                  Shopify data
+                </p>
+                <a href="{{ othershopifylinks.links }}" target="blank"  class="hover:text-gray-500 dark:text-white text-gray-700 rounded-full   hidden sm:block">
+                    <div class='flex inline-flex gap-2'>
+                      <p class="dark:text-white text-gray-700">see page</p>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle" viewBox="0 0 16 16">
+                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                        <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+                      </svg>
+                    </div>
+                </a>
+              </div>
+              <div class="grid grid-cols-2 md:grid-cols-3 gap-6 mb-2">
+                  <div class="flex items-center gap-2 px-4">
+                    <span class="rounded-full dark:text-white p-1 text-gray-700">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-wallet-fill" viewBox="0 0 16 16">
+                        <path d="M1.5 2A1.5 1.5 0 0 0 0 3.5v2h6a.5.5 0 0 1 .5.5c0 .253.08.644.306.958.207.288.557.542 1.194.542.637 0 .987-.254 1.194-.542.226-.314.306-.705.306-.958a.5.5 0 0 1 .5-.5h6v-2A1.5 1.5 0 0 0 14.5 2h-13z"/>
+                        <path d="M16 6.5h-5.551a2.678 2.678 0 0 1-.443 1.042C9.613 8.088 8.963 8.5 8 8.5c-.963 0-1.613-.412-2.006-.958A2.679 2.679 0 0 1 5.551 6.5H0v6A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-6z"/>
+                      </svg>
+                    </span>
+
+                    <div>
+                      <p class="text-gray-700 dark:text-white">${{ video.price_margin }}</p>
+
+                      <p class=" text-gray-700 dark:text-white">Profits</p>
+                    </div>
+                  </div>
+                  <div class="flex items-center gap-2 px-4">
+                    <span class="rounded-full dark:text-white p-1 text-gray-700">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-cash-coin" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M11 15a4 4 0 1 0 0-8 4 4 0 0 0 0 8zm5-4a5 5 0 1 1-10 0 5 5 0 0 1 10 0z"/>
+                        <path d="M9.438 11.944c.047.596.518 1.06 1.363 1.116v.44h.375v-.443c.875-.061 1.386-.529 1.386-1.207 0-.618-.39-.936-1.09-1.1l-.296-.07v-1.2c.376.043.614.248.671.532h.658c-.047-.575-.54-1.024-1.329-1.073V8.5h-.375v.45c-.747.073-1.255.522-1.255 1.158 0 .562.378.92 1.007 1.066l.248.061v1.272c-.384-.058-.639-.27-.696-.563h-.668zm1.36-1.354c-.369-.085-.569-.26-.569-.522 0-.294.216-.514.572-.578v1.1h-.003zm.432.746c.449.104.655.272.655.569 0 .339-.257.571-.709.614v-1.195l.054.012z"/>
+                        <path d="M1 0a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h4.083c.058-.344.145-.678.258-1H3a2 2 0 0 0-2-2V3a2 2 0 0 0 2-2h10a2 2 0 0 0 2 2v3.528c.38.34.717.728 1 1.154V1a1 1 0 0 0-1-1H1z"/>
+                        <path d="M9.998 5.083 10 5a2 2 0 1 0-3.132 1.65 5.982 5.982 0 0 1 3.13-1.567z"/>
+                      </svg>
+                    </span>
+
+                    <div>
+                      <p class="text-gray-700 dark:text-white">${{ video.shopify_price }}</p>
+
+                      <p class=" text-gray-700 dark:text-white">Price</p>
+                    </div>
+                  </div>
+                  <div class="flex items-center gap-2 px-4">
+                    <span class="rounded-full dark:text-white p-1 text-gray-700">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-wallet-fill" viewBox="0 0 16 16">
+                        <path d="M1.5 2A1.5 1.5 0 0 0 0 3.5v2h6a.5.5 0 0 1 .5.5c0 .253.08.644.306.958.207.288.557.542 1.194.542.637 0 .987-.254 1.194-.542.226-.314.306-.705.306-.958a.5.5 0 0 1 .5-.5h6v-2A1.5 1.5 0 0 0 14.5 2h-13z"/>
+                        <path d="M16 6.5h-5.551a2.678 2.678 0 0 1-.443 1.042C9.613 8.088 8.963 8.5 8 8.5c-.963 0-1.613-.412-2.006-.958A2.679 2.679 0 0 1 5.551 6.5H0v6A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-6z"/>
+                      </svg>
+                    </span>
+
+                    <div>
+
+                      <p class="text-gray-700 dark:text-white">${{ video.aliexpress_total_sale|cool_num }}</p>
+
+                      <p class=" text-gray-700 dark:text-white">Store</p>
+                    </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div class="rounded-md shadow-md p-2">
+          <div class="col-span-2 text-gray-700 dark:text-white">
+              <div class="border border-gray-200  dark:border-gray-600 rounded-lg p-2 mb-4 ">
+                  <div class="flex justify-between mb-2">
+                      <p class="text-gray-700 dark:text-white ">
+                        Ads text
+                      </p>
+                      <a href="{{ othershopifylinks.links }}" target="blank"  class="hover:text-gray-500 dark:text-white text-gray-700 rounded-full   hidden sm:block">
+                          <div class='flex inline-flex gap-2'>
+                            <p class="dark:text-white text-gray-700">see page</p>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle" viewBox="0 0 16 16">
+                              <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                              <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+                            </svg>
+                          </div>
+                      </a>
+                  </div>
+                  <div class="text-gray-700 dark:text-white mb-2">
+                       <!-- {{ video.text_that_comes_with_ads|safe  }}  -->
+
+
+                         <div class="p-5 text-gray-700 dark:text-white">
+                            <!-- This text always show up -->
+                            <div class="unreset">
+                                {{ video.text_that_comes_with_ads|safe  }} 
+                                <!-- The three dots -->
+                                <span id="dots">...</span>
+
+                                <!-- This content only be shown as needed -->
+                                <span id="more" class="hidden">
+                                  {{ video.read_more_text_that_comes_with_ads|safe  }} 
+                                <span>
+                            </div>
+
+                            <!-- Implement the read more/read less button -->
+                            <button onclick="toggleText()" id="button"
+                                class="mt-3 px-5 py-2 bg-rose-500 text-white duration-300 hover:bg-rose-700">Read
+                                more</button>
+                        </div>
+
+                        <!-- Javascript code -->
+                        <script>
+                            function toggleText() {
+                                var dots = document.getElementById("dots");
+                                var moreText = document.getElementById("more");
+                                var button = document.getElementById("button");
+
+                                if (dots.classList.contains("hidden")) {
+                                    // Show the dots
+                                    dots.classList.remove("hidden");
+
+                                    // Hide the more text
+                                    moreText.classList.add("hidden");
+
+                                    // change text of the button
+                                    button.innerHTML = "Read more";
+                                } else {
+                                    // Hide the dots
+                                    dots.classList.add("hidden");
+
+                                    // hide the more text
+                                    moreText.classList.remove("hidden");
+
+                                    // change text of the button
+                                    button.innerHTML = "Read less";
+                                }
+                            }
+                        </script>
+                   </div>
+              </div>
+              <div class="border border-gray-200  dark:border-gray-600 rounded-lg p-2 mb-4 ">
+                  <div class="flex justify-between my-2">
+                    <p class=" text-gray-700 dark:text-white ">
+                      Informations
+                    </p>
+                    <a href="{{ othershopifylinks.links }}" target="blank"  class="hover:text-gray-500 dark:text-white text-gray-700 rounded-full   hidden sm:block">
+                        <div class='flex inline-flex gap-2'>
+                          <p class="dark:text-white text-gray-700">see page</p>
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle" viewBox="0 0 16 16">
+                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                            <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+                          </svg>
+                        </div>
+                    </a>
+                  </div>
+                  <div class="grid grid-cols-6 gap-2 ">
+                      <div class="grid justify-center">
+                          <img src="{% static 'images/facebook/facebook-like.png' %}" alt="" class="w-8 h-8 mx-auto rounded-full dark:bg-gray-500 aspect-square">
+                          <p class="text-lg text-center">
+                            {{ video.facebook_like|cool_num }}
+                          </p>
+                      </div>
+                      <div class="grid justify-center">
+                          <img src="{% static 'images/facebook/Wow_facebook.png' %}" alt="" class="w-8 h-8 mx-auto rounded-full dark:bg-gray-500 aspect-square">
+
+                          <p class="text-lg text-center">
+                            {{ video.facebook_wow|cool_num }}
+                          </p>
+                      </div>
+                      <div class="grid justify-center">
+                            <img src="{% static 'images/facebook/facebook-love.png' %}" alt="" class="w-8 h-8 mx-auto rounded-full dark:bg-gray-500 aspect-square">
+                          <p class="text-lg text-center">
+                            {{ video.facebook_love|cool_num }}
+                          </p>
+                      </div>
+                      <div class="grid justify-center">
+                          <svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" 
+                            viewBox="0 0 1500 1500" width="32" height="32">
+                            <style>.st0{fill:#fff}.st1{fill:#ffda6b}.st2{fill:none;stroke:#262c38;stroke-width:10;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10}.st3{fill:#262c38}.st4{fill:#f05266}.st5{fill:none;stroke:#262c38;stroke-width:60;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10}</style>
+                              <path class="st0" d="M542.7 1092.6H377.6c-13 0-23.6-10.6-23.6-23.6V689.9c0-13 10.6-23.6 23.6-23.6h165.1c13 0 23.6 10.6 23.6 23.6V1069c0 13-10.6 23.6-23.6 23.6zM624 1003.5V731.9c0-66.3 18.9-132.9 54.1-189.2 21.5-34.4 69.7-89.5 96.7-118 6-6.4 27.8-25.2 27.8-35.5 0-13.2 1.5-34.5 2-74.2.3-25.2 20.8-45.9 46-45.7h1.1c44.1 1 58.3 41.7 58.3 41.7s37.7 74.4 2.5 165.4c-29.7 76.9-35.7 83.1-35.7 83.1s-9.6 13.9 20.8 13.3c0 0 185.6-.8 192-.8 13.7 0 57.4 12.5 54.9 68.2-1.8 41.2-27.4 55.6-40.5 60.3-2.6.9-2.9 4.5-.5 5.9 13.4 7.8 40.8 27.5 40.2 57.7-.8 36.6-15.5 50.1-46.1 58.5-2.8.8-3.3 4.5-.8 5.9 11.6 6.6 31.5 22.7 30.3 55.3-1.2 33.2-25.2 44.9-38.3 48.9-2.6.8-3.1 4.2-.8 5.8 8.3 5.7 20.6 18.6 20 45.1-.3 14-5 24.2-10.9 31.5-9.3 11.5-23.9 17.5-38.7 17.6l-411.8.8c-.2 0-22.6 0-22.6-30z"/><path class="st0" d="M750 541.9C716.5 338.7 319.5 323.2 319.5 628c0 270.1 430.5 519.1 430.5 519.1s430.5-252.3 430.5-519.1c0-304.8-397-289.3-430.5-86.1z"/><ellipse class="st1" cx="750.2" cy="751.1" rx="750" ry="748.8"/><g><path id="mond" class="st3" d="M755.3 784.1H255.4s13.2 431.7 489 455.8c6.7.3 11.2.1 11.2.1 475.9-24.1 489-455.9 489-455.9H755.3z"/><path id="tong" class="st4" d="M312.1 991.7s174.8-83.4 435-82.6c129 .4 282.7 12 439.2 83.4 0 0-106.9 260.7-436.7 260.7-329 0-437.5-261.5-437.5-261.5z"/><path id="linker_1_" class="st5" d="M1200.2 411L993 511.4l204.9 94.2"/><path id="linker_4_" class="st5" d="M297.8 411L505 511.4l-204.9 94.2"/></g>
+                            </svg>
+                          <p class="text-lg text-center">
+                            {{ video.facebook_haha|cool_num }}
+                          </p>
+                      </div>
+                      <div class="grid justify-center">
+                          <img src="{% static 'images/facebook/Sad_facebook.png' %}" alt="" class="w-8 h-8 mx-auto rounded-full dark:bg-gray-500 aspect-square">
+                          <p class="text-lg text-center">
+                            {{ video.facebook_sad|cool_num }}
+                          </p>
+                      </div>
+                      <div class="grid justify-center">
+                          <img src="{% static 'images/facebook/Angry_facebook.png' %}" alt="" class="w-8 h-8 mx-auto rounded-full dark:bg-gray-500 aspect-square">
+                          <p class="text-lg text-center">
+                            {{ video.facebook_angry|cool_num }}
+                          </p>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+    </div>
+    <div class="grid grid-flow-row-dense grid-cols-1 md:grid-cols-3 md:gap-6 mb-6">
+      <div class="col-span-2 mt-4 md:mt-0">
+        <!-- <h2 class="mb-2 text-center text-2xl text-gray-700 dark:text-white">Progression of orders since August 9, 2022 to today</h2>
+        <div class="p-4">
+          <canvas id="product-chart" style="position: relative;"  data-url="/"></canvas>
+        </div> -->
+        <div class="mb-4 border-b border-gray-200 dark:border-gray-700">
+            <ul class="flex flex-wrap -mb-px text-sm font-medium text-center" id="myTab" data-tabs-toggle="#myTabContent" role="tablist">
+                <li class="mr-2" role="presentation">
+                    <button class="inline-block p-4 border-b-2 rounded-t-lg" id="profile-tab" data-tabs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Orders</button>
+                </li>
+                <li class="mr-2" role="presentation">
+                    <button class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300" id="dashboard-tab" data-tabs-target="#dashboard" type="button" role="tab" aria-controls="dashboard" aria-selected="false">Dashboard</button>
+                </li>
+                <li class="mr-2" role="presentation">
+                    <button class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300" id="settings-tab" data-tabs-target="#settings" type="button" role="tab" aria-controls="settings" aria-selected="false">Settings</button>
+                </li>
+                <li role="presentation">
+                    <button class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300" id="contacts-tab" data-tabs-target="#contacts" type="button" role="tab" aria-controls="contacts" aria-selected="false">Contacts</button>
+                </li>
+            </ul>
+        </div>
+        <div id="myTabContent">
+            <div class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                <div class="p-4">
+                  <canvas id="product-chart" style="position: relative;"  data-url="/"></canvas>
+                </div>
+            </div>
+            <div class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="dashboard" role="tabpanel" aria-labelledby="dashboard-tab">
+                <p class="text-sm text-gray-500 dark:text-gray-400">This is some placeholder content the <strong class="font-medium text-gray-800 dark:text-white">Dashboard tab's associated content</strong>. Clicking another tab will toggle the visibility of this one for the next. The tab JavaScript swaps classes to control the content visibility and styling.</p>
+            </div>
+            <div class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="settings" role="tabpanel" aria-labelledby="settings-tab">
+                <p class="text-sm text-gray-500 dark:text-gray-400">This is some placeholder content the <strong class="font-medium text-gray-800 dark:text-white">Settings tab's associated content</strong>. Clicking another tab will toggle the visibility of this one for the next. The tab JavaScript swaps classes to control the content visibility and styling.</p>
+            </div>
+            <div class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="contacts" role="tabpanel" aria-labelledby="contacts-tab">
+                <p class="text-sm text-gray-500 dark:text-gray-400">This is some placeholder content the <strong class="font-medium text-gray-800 dark:text-white">Contacts tab's associated content</strong>. Clicking another tab will toggle the visibility of this one for the next. The tab JavaScript swaps classes to control the content visibility and styling.</p>
+            </div>
+        </div>
+      </div>
+      <div >
+        <div class="text-gray-700 dark:text-white">
+          <h2 class="mb-2 text-2xl text-gray-700 dark:text-white ">Shopify Links</h2>
+          <ol class="max-w-md space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400">
+            {% for othershopifylinks in video.othershopifylinks_set.all %}
+              <li>
+                  <a href="{{ othershopifylinks.links }}" target="blank" class="inline-flex items-center text-gray-700  dark:text-white hover:underline">
+                   {{ othershopifylinks.name }}
+                   <span class="font-medium text-gray-700 dark:text-white ml-2">{{ othershopifylinks.country }}</span>
+                  </a>
+              </li>
+            {% endfor %}
+          </ol>
+        </div>
+      </div>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 md:gap-6">
+      <div>
+          <div class="text-gray-700 dark:text-white">
+            <h2 class="mb-2 text-2xl text-gray-700 dark:text-white">Aliexpress Links</h2>
+            {% for otheraliexpresssupplierslinks in video.otheraliexpresssupplierslinks_set.all %}
+            <ol class="max-w-md space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400">
+                <li>
+                    <a href="{{ otheraliexpresssupplierslinks.links }}" class="inline-flex items-center text-gray-700  dark:text-white hover:underline">
+                     {{ otheraliexpresssupplierslinks.name }}
+                    </a>
+                    <span class="ml-4 text-gray-700  dark:text-white">
+                      {{ otheraliexpresssupplierslinks.country }}
+                    </span>
+                    <span class="font-medium text-gray-700 dark:text-white ml-4">
+                      {{ otheraliexpresssupplierslinks.price }}
+                    </span> 
+                </li>
+            </ol>
+            {% endfor %}
+          </div>
+      </div>
+      <!-- <div>
+          <div class="text-gray-700 dark:text-white">
+            <h2 class="mb-2 text-2xl text-gray-700 dark:text-white">Others Shopify Store Links (41)</h2>
+            <ol class="max-w-md space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400">
+                <li>
+                    <a href="#" class="inline-flex items-center text-gray-700  dark:text-white hover:underline">
+                     pheron.aliexpress
+                    </a>
+                    U.S <span class="font-medium text-gray-700 dark:text-white">$11.53</span> 
+                </li>
+                <li>
+                    <a href="#" class="inline-flex items-center text-gray-700  dark:text-white hover:underline">
+                     pheron.aliexpress
+                    </a>
+                    U.S <span class="font-medium text-gray-700 dark:text-white">$11.53</span> 
+                </li>
+                <li>
+                    <a href="#" class="inline-flex items-center text-gray-700  dark:text-white hover:underline">
+                     pheron.aliexpress
+                    </a>
+                    U.S <span class="font-medium text-gray-700 dark:text-white">$11.53</span> 
+                </li>
+                <li>
+                    <a href="#" class="inline-flex items-center text-gray-700  dark:text-white hover:underline">
+                     pheron.aliexpress
+                    </a>
+                    U.S <span class="font-medium text-gray-700 dark:text-white">$11.53</span> 
+                </li>
+                <li>
+                    <a href="#" class="inline-flex items-center text-gray-700  dark:text-white hover:underline">
+                     pheron.aliexpress
+                    </a>
+                    U.S <span class="font-medium text-gray-700 dark:text-white">$11.53</span> 
+                </li>
+            </ol>
+          </div>
+      </div>
+      <div>
+          <div class="text-gray-700 dark:text-white">
+            <h2 class="mb-2 text-2xl text-gray-700 dark:text-white">Others Shopify Store Links (41)</h2>
+            <ol class="max-w-md space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400">
+                <li>
+                    <a href="#" class="inline-flex items-center text-gray-700  dark:text-white hover:underline">
+                     pheron.aliexpress
+                    </a>
+                    U.S <span class="font-medium text-gray-700 dark:text-white">$11.53</span> 
+                </li>
+                <li>
+                    <a href="#" class="inline-flex items-center text-gray-700  dark:text-white hover:underline">
+                     pheron.aliexpress
+                    </a>
+                    U.S <span class="font-medium text-gray-700 dark:text-white">$11.53</span> 
+                </li>
+                <li>
+                    <a href="#" class="inline-flex items-center text-gray-700  dark:text-white hover:underline">
+                     pheron.aliexpress
+                    </a>
+                    U.S <span class="font-medium text-gray-700 dark:text-white">$11.53</span> 
+                </li>
+                <li>
+                    <a href="#" class="inline-flex items-center text-gray-700  dark:text-white hover:underline">
+                     pheron.aliexpress
+                    </a>
+                    U.S <span class="font-medium text-gray-700 dark:text-white">$11.53</span> 
+                </li>
+                <li>
+                    <a href="#" class="inline-flex items-center text-gray-700  dark:text-white hover:underline">
+                     pheron.aliexpress
+                    </a>
+                    U.S <span class="font-medium text-gray-700 dark:text-white">$11.53</span> 
+                </li>
+            </ol>
+          </div>
+      </div> -->
+    </div>
+</div>
+{% endblock content %}

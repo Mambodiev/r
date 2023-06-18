@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block head_title %}{% trans "Verify Your E-mail Address" %}{% endblock %}
+{% load crispy_forms_tags %}
+
+
+{% block content %}
+  <div class="mx-auto max-w-screen-sm px-2">
+      <h2 class="mt-6 text-2xl font-extrabold text-center text-gray-900 dark:text-white">
+          {% trans "Verify Your E-mail Address" %}
+      </h2>
+      
+      <p class="mt-2 text-lg text-center text-gray-900 dark:text-white">
+        Thank you for signing up.
+      </p>
+      <p class="mt-2 text-lg text-center text-gray-900 dark:text-white">
+            We have sent an e-mail to you for verification. Follow the link provided to finalize the signup process. If you do not see the verification e-mail in your main inbox, check your spam folder. Please <a href="{% url 'core:contact' %}" class="font-medium text-green-500 hover:text-green-700">contact us</a> if you do not receive the verification e-mail within a few minutes.
+      </p>    
+  </div>
+{% endblock content %}
+
+
+
+{% comment %} {% extends "account/base.html" %}
+
+{% load i18n %}
+
+{% block head_title %}{% trans "Verify Your E-mail Address" %}{% endblock %}
+
+{% block content %}
+    <h1>{% trans "Verify Your E-mail Address" %}</h1>
+
+    <p>{% blocktrans %}We have sent an e-mail to you for verification. Follow the link provided to finalize the signup process. If you do not see the verification e-mail in your main inbox, check your spam folder. Please contact us if you do not receive the verification e-mail within a few minutes.{% endblocktrans %}</p>
+
+{% endblock %} {% endcomment %}

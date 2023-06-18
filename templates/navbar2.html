@@ -1,0 +1,248 @@
+{% load static %}
+{% load i18n %}
+{% load cart_template_tags %}
+
+<!-- <nav class="bg-teal-500 p-6 mb-20">
+  <div class="max-w-5xl mx-auto px-2 sm:px-4 lg:px-8">
+    <div class="flex items-center justify-between flex-wrap">
+      <div class="flex items-center flex-shrink-0 text-white mr-6">
+        <a href="{% url 'home' %}"><span class="font-semibold text-xl tracking-tight">Video Membership</span></a>
+      </div>
+      <div class="block lg:hidden">
+        <button class="flex items-center px-3 py-2 border rounded text-teal-200 border-teal-400 hover:text-white hover:border-white">
+          <svg class="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/></svg>
+        </button>
+      </div>
+      <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
+        <div class="text-sm lg:flex-grow">
+          <a href="{% url 'content:course-list' %}" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
+            Courses
+          </a>
+          {% if request.user.is_authenticated %}
+          <a href="{% url 'users:detail' request.user.username  %}" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
+            My Profile
+          </a>
+          <a href="{% url 'payment:enroll' %}" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
+            Enroll
+          </a>
+          <a href="{% url 'account_logout' %}" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
+            Logout
+          </a>
+          {% endif %}
+        </div>
+        <div>
+          {% if not request.user.is_authenticated %}
+          <a href="{% url 'account_login' %}" class="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0">
+            Login
+          </a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</nav> -->
+
+<nav class="bg-white dark:bg-gray-900 fixed w-full z-20 top-0 left-0 border-b border-gray-100 dark:border-gray-800">
+    <div class="container  mx-auto px-4">
+        <div class="flex flex-wrap items-center justify-between">
+            {% comment %} logo {% endcomment %}
+                <a href="/" class="flex items-center text-gray-700 dark:text-white hover:text-gray-500">
+                    <!-- <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-suit-diamond-fill mr-3" viewBox="0 0 16 16">
+                        <path d="M2.45 7.4 7.2 1.067a1 1 0 0 1 1.6 0L13.55 7.4a1 1 0 0 1 0 1.2L8.8 14.933a1 1 0 0 1-1.6 0L2.45 8.6a1 1 0 0 1 0-1.2z"/>
+                    </svg> -->
+                    <span class="self-center text-xl font-semibold whitespace-nowrap text-gray-700 dark:text-white hover:text-gray-500 hidden sm:block uppercase">ICOMPETI</span>
+                </a>
+            {% comment %} end logo {% endcomment %}
+            <div class="flex lg:order-2 gap-4">
+
+                {% comment %} selectlanguage {% endcomment %}
+                    <button id="dropdownAvatarNameButton" data-dropdown-toggle="dropdownAvatarNameLang" class="flex items-center text-lg font-medium dark:text-gray-200 text-gray-700 hover:bg-gray-200 dark:hover:bg-gray-700 p-2 rounded-full" type="button">
+                        <span class="sr-only">Open user menu</span>
+                        <div class="relative inline-flex items-center justify-center w-8 h-8 overflow-hidden rounded-full">
+                            <span class="font-medium">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-translate" viewBox="0 0 16 16">
+                                  <path d="M4.545 6.714 4.11 8H3l1.862-5h1.284L8 8H6.833l-.435-1.286H4.545zm1.634-.736L5.5 3.956h-.049l-.679 2.022H6.18z"/>
+                                  <path d="M0 2a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2v3h3a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-3H2a2 2 0 0 1-2-2V2zm2-1a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H2zm7.138 9.995c.193.301.402.583.63.846-.748.575-1.673 1.001-2.768 1.292.178.217.451.635.555.867 1.125-.359 2.08-.844 2.886-1.494.777.665 1.739 1.165 2.93 1.472.133-.254.414-.673.629-.89-1.125-.253-2.057-.694-2.82-1.284.681-.747 1.222-1.651 1.621-2.757H14V8h-3v1.047h.765c-.318.844-.74 1.546-1.272 2.13a6.066 6.066 0 0 1-.415-.492 1.988 1.988 0 0 1-.94.31z"/>
+                                </svg>
+                            </span>
+                        </div>
+                        <svg class="w-4 h-4 mx-1.5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                    </button>
+
+                    <!-- Dropdown menu -->
+                    {% get_current_language as CURRENT_LANGUAGE %}
+                    {% get_available_languages as AVAILABLE_LANGUAGES %}
+                    {% get_language_info_list for AVAILABLE_LANGUAGES as languages %}
+                    <div id="dropdownAvatarNameLang" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
+                        <ul class="py-2 text-lg text-gray-700 dark:text-gray-200" aria-labelledby="dropdownInformdropdownAvatarNameButtonationButton">
+                        {% for language in languages %}
+                            <li>
+                                <a href="/{{ language.code }}/"{% if language.code == CURRENT_LANGUAGE %}{% endif %} class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                                    {{ language.name_local }}
+                                </a>
+                          </li>
+                        {% endfor %}
+                        
+                         
+                        </ul>
+                    </div>
+                {% comment %} end selectlanguage {% endcomment %}
+
+                {% comment %} toggle dark and light mode {% endcomment %}
+                    <button id="theme-toggle" type="button" class=" text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-full p-2">
+                        <svg id="theme-toggle-dark-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-moon-stars hidden" viewBox="0 0 16 16">
+                            <path d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278zM4.858 1.311A7.269 7.269 0 0 0 1.025 7.71c0 4.02 3.279 7.276 7.319 7.276a7.316 7.316 0 0 0 5.205-2.162c-.337.042-.68.063-1.029.063-4.61 0-8.343-3.714-8.343-8.29 0-1.167.242-2.278.681-3.286z"/>
+                            <path d="M10.794 3.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387a1.734 1.734 0 0 0-1.097 1.097l-.387 1.162a.217.217 0 0 1-.412 0l-.387-1.162A1.734 1.734 0 0 0 9.31 6.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387a1.734 1.734 0 0 0 1.097-1.097l.387-1.162zM13.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.156 1.156 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.156 1.156 0 0 0-.732-.732l-.774-.258a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732L13.863.1z"/>
+                        </svg>
+                        <svg id="theme-toggle-light-icon" 
+                            xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-sun-fill hidden" viewBox="0 0 16 16">
+                            <path d="M8 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"/>
+                        </svg>
+                    </button>
+                {% comment %} end toggle dark and light mode {% endcomment %}
+
+                {% if user.is_authenticated %}
+
+                    {% comment %} my user, account dropdown  {% endcomment %}
+                        <button id="dropdownAvatarNameButton" data-dropdown-toggle="dropdownAvatarName" class="flex items-center font-medium hover:bg-gray-200  border-2 border-gray-700 text-gray-700 dark:border-gray-200 dark:hover:bg-gray-700 dark:text-white rounded-full px-2" type="button">
+                            <span class="sr-only">Open user menu</span>
+                            <div class="relative inline-flex items-center justify-center w-8 h-8 overflow-hidden">
+                                <span class="font-medium text-gray-600 dark:text-gray-200">{{user.email|upper|slice:"0:2"}}</span>
+                            </div>
+                            <svg class="w-4 h-4 mx-1.5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                        </button>
+
+                        <!-- Dropdown menu -->
+                        <div id="dropdownAvatarName" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
+                            <ul class="py-2 text-lg text-gray-700 dark:text-gray-200" aria-labelledby="dropdownInformdropdownAvatarNameButtonationButton">
+                              <li>
+                                <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">{% trans "Dashboard" %}</a>
+                              </li>
+                              <li>
+                                <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white inline-flex items-center">{% trans "Saved" %}
+                                    <span class="inline-flex items-center justify-center w-4 h-4 ml-2 text-xs font-semibold w-6 h-6 text-lg font-bold text-white bg-red-500 rounded-full">
+                                        10
+                                    </span>
+                                </a>
+                              </li>
+                              <li>
+                                <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">{% trans "Settings" %}</a>
+                              </li>
+
+
+
+                            </ul>
+                            <div class="py-2">
+                              <a href="{% url 'account_logout' %}" class="block px-4 py-2 text-lg text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">{% trans "Sign out" %}</a>
+                            </div>
+                        </div>
+
+                    {% comment %} my user, account dropdown  {% endcomment %}
+                {% endif %}
+
+                 {% comment %} Mobile menu button {% endcomment %}
+                    <div class="flex items-center lg:hidden">
+                        <button id="toggle-menu-button" type="button" data-collapse-toggle="navbar-sticky" 
+                            class="inline-flex items-center justify-center rounded-md  text-gray-700 " aria-controls="navbar-sticky" aria-expanded="false">
+                                <span class="sr-only">Toggle Menu</span>
+                                <div id="open" class="h-5 flex flex-col items-end justify-between">
+                                    <span class="block h-0.5 w-8 bg-gray-700 dark:bg-white rounded-full"></span>
+                                    <span class="block h-0.5 w-6 ml-2 bg-gray-700 dark:bg-white rounded-full"></span>
+                                    <span class="block h-0.5 w-8 bg-gray-700 dark:bg-white rounded-full"></span>
+                                </div>
+                                <div  id="close" class="hidden h-7 flex flex-col items-end justify-between">
+                                    <span class="block h-0.5 w-8 bg-gray-700 dark:bg-white  rounded-full origin-left transform rotate-45 translate-y-0.5"></span>
+                                    <span class="block h-0.5 w-8 bg-gray-700 dark:bg-white  rounded-full origin-left transform -rotate-45 -translate-y-0.5"></span>
+                                </div>
+                        </button>
+                    </div>
+                {% comment %} Mobile menu button {% endcomment %}
+            </div>
+            <div class="items-center justify-between hidden w-full lg:flex lg:w-auto lg:order-1" id="navbar-sticky">
+                <ul class="flex flex-col p-4 mt-4 border border-gray-100 rounded-lg bg-gray-50 lg:flex-row md:space-x-8 md:mt-0 lg:text-lg lg:font-medium lg:border-0 lg:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+                    <li>
+                        <a href="{% url 'content:course-list' %}" class="block py-2 pl-3 pr-4 text-gray-700  dark:text-white lg:p-0 hover:text-gray-500" aria-current="page">
+                            {% trans "Product" %}
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="block py-2 pl-3 pr-4 text-gray-700  dark:text-white lg:p-0 hover:text-gray-500">
+                            {% trans "Price" %}
+                        </a>
+                    </li>
+                     <li>
+                        <a href="#" class="block py-2 pl-3 pr-4 text-gray-700  dark:text-white lg:p-0 hover:text-gray-500">{% trans "Contact" %}</a>
+                    </li>
+                    <li class="lg:hidden">
+                        <a href="{% url 'account_login' %}" class="block py-2 pl-3 pr-4 text-gray-700  dark:text-white lg:p-0 hover:text-gray-500">{% trans "Login" %}</a>
+                    </li>
+                    <li class="lg:hidden">
+                        <a href="{% url 'account_signup' %}" class="block py-2 pl-3 pr-4 text-gray-700  dark:text-white lg:p-0 hover:text-gray-500">{% trans "Sign Up" %}</a>
+                    </li>
+
+                    {% comment %} staff things {% endcomment %}
+                        {% if request.user.is_staff %}
+                            <li>
+                                <a href="#" class="block py-2 pl-3 pr-4 text-gray-700  dark:text-white md:p-0 hover:text-gray-500">{% trans "Staff" %}</a>
+                            </li>
+                        {% endif %}
+                        {% comment %} end staff things {% endcomment %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>
+
+
+{% comment %} 
+<nav class="navbar navbar-expand-md navbar-light bg-light">
+  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <a class="navbar-brand" href="{% url 'home' %}">djvideomem</a>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'about' %}">About</a>
+      </li>
+      {% if request.user.is_authenticated %}
+        <li class="nav-item">
+          {# URL provided by django-allauth/account/urls.py #}
+          <a class="nav-link" href="{% url 'users:detail' request.user.username  %}">{% trans "My Profile" %}</a>
+        </li>
+        <li class="nav-item">
+          {# URL provided by django-allauth/account/urls.py #}
+          <a class="nav-link" href="{% url 'account_logout' %}">{% trans "Sign Out" %}</a>
+        </li>
+      {% else %}
+        <li class="nav-item">
+          {# URL provided by django-allauth/account/urls.py #}
+          <a id="sign-up-link" class="nav-link" href="{% url 'account_signup' %}">{% trans "Sign Up" %}</a>
+        </li>
+        <li class="nav-item">
+          {# URL provided by django-allauth/account/urls.py #}
+          <a id="log-in-link" class="nav-link" href="{% url 'account_login' %}">{% trans "Sign In" %}</a>
+        </li>
+      {% endif %}
+    </ul>
+  </div>
+</nav> {% endcomment %}
+
+
+{% block javascript %}
+<script>
+    var button = document.querySelector('#toggle-menu-button');
+    var menu = document.querySelector('#toggle-menu');
+    var open = document.querySelector('#open');
+    var close = document.querySelector('#close');
+    button.addEventListener('click', (e)=>{
+    //menu.classList.toggle('hidden');
+    open.classList.toggle('hidden');
+    close.classList.toggle('hidden');
+    });
+</script>
+{% endblock %}

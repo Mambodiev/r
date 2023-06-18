@@ -1,0 +1,261 @@
+{% extends "base.html" %}
+{% load static i18n %}
+{% load cool_num %}
+{% load crispy_forms_tags %}
+
+
+{% block content %}
+    {% if has_permission %}
+      <div class="mx-auto max-w-2xl px-4 py-2 sm:px-6 lg:max-w-7xl lg:px-8">
+        <p class="text-2xl text-gray-700 dark:text-white text-center pb-4">{% translate "Over" %}<strong class="rounded-full bg-blue-500 p-2 mx-2 text-white">
+                {{course.videos.all.count}}</strong> 
+            {% translate "products." %}
+        </p> 
+        {% comment %} end product count {% endcomment %}
+            <form method="GET" action="." class='mb-4'>
+                <div class="grid gap-2 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+                        <select  onchange="this.form.submit()" id="category" class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-900 dark:text-white dark:border-gray-600" name="category">
+                          <option selected>{% translate "All categories" %}</option>
+                          {% for cat in categories  %}
+                          <option value="{{ cat }}">{{ cat }}</option>
+                          {% endfor %}
+                        </select>
+                    <div>
+                        <select  onchange="this.form.submit()" id="technology" class="text-gray-700 dark:text-white dark:bg-gray-900 border-block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-900 dark:text-white dark:border-gray-600" name="technology">
+                          <option selected>{% translate "Site type" %}</option>
+                          {% for cat in technologies %}
+                          <option value="{{ cat }}">{{ cat }}</option>
+                          {% endfor %}
+                        </select>
+                    </div>
+                    <div>
+                        <select  onchange="this.form.submit()" id="country" class="text-gray-700 dark:text-white dark:bg-gray-900 border-block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-900 dark:text-white dark:border-gray-600" name="country">
+                          <option selected>{% translate "Country" %}</option>
+                          {% for cat in countries %}
+                          <option value="{{ cat }}">{{ cat }}</option>
+                          {% endfor %}
+                        </select>
+                    </div>
+                    <div>
+                        <select  onchange="this.form.submit()" id="button" class="text-gray-700 dark:text-white dark:bg-gray-900 border-block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-900 dark:text-white dark:border-gray-600" name="button">
+                          <option selected>{% translate "Button" %}</option>
+                          {% for cat in buttons %}
+                          <option value="{{ cat }}">{{ cat }}</option>
+                          {% endfor %}
+                        </select>
+                    </div>
+                    <div>
+                        <select  onchange="this.form.submit()" id="language" class="text-gray-700 dark:text-white dark:bg-gray-900 border-block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-900 dark:text-white dark:border-gray-600" name="language">
+                          <option selected>{% translate "Language" %}</option>
+                          {% for cat in languages %}
+                          <option value="{{ cat }}">{{ cat }}</option>
+                          {% endfor %}
+                        </select>
+                    </div> 
+                </div>  
+                <div class="grid gap-2  my-2 grid-cols-2 sm:grid-cols-3  md:grid-cols-4 lg:grid-cols-6">
+                    <div>
+                        <label class="text-gray-700 dark:text-white" for="username">{% translate "Min likes" %}</label>
+                        <input type="number" min=0 id="likesCountMin" placeholder="0" name="likes_count_min"  class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-900 dark:text-white dark:border-gray-600">
+                    </div>
+                    <div>
+                        <label class="text-gray-700 dark:text-white" for="username">{% translate "Max likes" %}</label>
+                        <input type="number" min=0  id="likesCountMax" placeholder="10000?" name="likes_count_max" class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-900 dark:text-white dark:border-gray-600">
+                    </div>
+                    <div>
+                        <label class="text-gray-700 dark:text-white" for="username">{% translate "Date min" %}</label>
+                        <input type="date" id="publishDateMin" name="date_min" class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-900 dark:text-white dark:border-gray-600">
+                    </div>
+                    <div>
+                        <label class="text-gray-700 dark:text-white" for="username">{% translate "Date max" %}</label>
+                        <input onchange="this.form.submit()" type="date" id="publishDateMax" name="date_max" class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-900 dark:text-white dark:border-gray-600">
+                    </div>
+                    <div>
+                        <label class="text-gray-700 dark:text-white" for="aliexpressPriceMin">{% translate "Price min" %}</label>
+                        <input  type="number" min=0  id="aliexpressPriceMin" placeholder="0" name="aliexpress_price_min" class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-900 dark:text-white dark:border-gray-600">
+                    </div>
+                    <div>
+                        <label class="text-gray-700 dark:text-white" for="aliexpressPriceMax">{% translate "Price max" %}</label>
+                        <input  type="number" min=0  id="aliexpressPriceMax" placeholder="10000?" name="aliexpress_price_max" class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-900 dark:text-white dark:border-gray-600">
+                    </div>
+                </div>
+
+                        {% comment %} checkbox filter {% endcomment %} 
+                        <div class="w-full text-center py-2">
+                            <div class="mb-[0.125rem] mr-4 inline-block min-h-[1.5rem] pl-[1.5rem] text-center">
+                                <input
+                                  onchange="this.form.submit()"
+                                  class="relative float-left mt-[0.15rem] mr-[6px] -ml-[1.5rem] h-[1.125rem] w-[1.125rem] appearance-none rounded-[0.25rem] border-[0.125rem] border-solid border-[rgba(0,0,0,0.25)] bg-white before:pointer-events-none before:absolute before:h-[0.875rem] before:w-[0.875rem] before:scale-0 before:rounded-full before:bg-transparent before:opacity-0 before:shadow-[0px_0px_0px_13px_transparent] before:content-[''] checked:border-primary checked:bg-primary checked:before:opacity-[0.16] checked:after:absolute checked:after:ml-[0.25rem] checked:after:-mt-px checked:after:block checked:after:h-[0.8125rem] checked:after:w-[0.375rem] checked:after:rotate-45 checked:after:border-[0.125rem] checked:after:border-t-0 checked:after:border-l-0 checked:after:border-solid checked:after:border-white checked:after:bg-transparent checked:after:content-[''] hover:cursor-pointer hover:before:opacity-[0.04] hover:before:shadow-[0px_0px_0px_13px_rgba(0,0,0,0.6)] focus:shadow-none focus:transition-[border-color_0.2s] focus:before:scale-100 focus:before:opacity-[0.12] focus:before:shadow-[0px_0px_0px_13px_rgba(0,0,0,0.6)] focus:before:transition-[box-shadow_0.2s,transform_0.2s] focus:after:absolute focus:after:z-[1] focus:after:block focus:after:h-[0.875rem] focus:after:w-[0.875rem] focus:after:rounded-[0.125rem] focus:after:bg-white focus:after:content-[''] checked:focus:border-primary checked:focus:bg-primary checked:focus:before:scale-100 checked:focus:before:shadow-[0px_0px_0px_13px_#3b71ca] checked:focus:before:transition-[box-shadow_0.2s,transform_0.2s] checked:focus:after:ml-[0.25rem] checked:focus:after:-mt-px checked:focus:after:h-[0.8125rem] checked:focus:after:w-[0.375rem] checked:focus:after:rotate-45 checked:focus:after:rounded-none checked:focus:after:border-[0.125rem] checked:focus:after:border-t-0 checked:focus:after:border-l-0 checked:focus:after:border-solid checked:focus:after:border-white checked:focus:after:bg-transparent"
+                                  type="checkbox"
+                                  id="has_video" 
+                                  name="has_video" />
+                                <label
+                                  class="text-gray-700 dark:text-white inline-block pl-[0.15rem] hover:cursor-pointer"
+                                  for="inlineCheckbox1"
+                                  >{% translate "Video" %}</label
+                                >
+                            </div>
+                            <div class="mb-[0.125rem] mr-4 inline-block min-h-[1.5rem] pl-[1.5rem]">
+                                <input
+                                  onchange="this.form.submit()"
+                                  class="relative float-left mt-[0.15rem] mr-[6px] -ml-[1.5rem] h-[1.125rem] w-[1.125rem] appearance-none rounded-[0.25rem] border-[0.125rem] border-solid border-[rgba(0,0,0,0.25)] bg-white before:pointer-events-none before:absolute before:h-[0.875rem] before:w-[0.875rem] before:scale-0 before:rounded-full before:bg-transparent before:opacity-0 before:shadow-[0px_0px_0px_13px_transparent] before:content-[''] checked:border-primary checked:bg-primary checked:before:opacity-[0.16] checked:after:absolute checked:after:ml-[0.25rem] checked:after:-mt-px checked:after:block checked:after:h-[0.8125rem] checked:after:w-[0.375rem] checked:after:rotate-45 checked:after:border-[0.125rem] checked:after:border-t-0 checked:after:border-l-0 checked:after:border-solid checked:after:border-white checked:after:bg-transparent checked:after:content-[''] hover:cursor-pointer hover:before:opacity-[0.04] hover:before:shadow-[0px_0px_0px_13px_rgba(0,0,0,0.6)] focus:shadow-none focus:transition-[border-color_0.2s] focus:before:scale-100 focus:before:opacity-[0.12] focus:before:shadow-[0px_0px_0px_13px_rgba(0,0,0,0.6)] focus:before:transition-[box-shadow_0.2s,transform_0.2s] focus:after:absolute focus:after:z-[1] focus:after:block focus:after:h-[0.875rem] focus:after:w-[0.875rem] focus:after:rounded-[0.125rem] focus:after:bg-white focus:after:content-[''] checked:focus:border-primary checked:focus:bg-primary checked:focus:before:scale-100 checked:focus:before:shadow-[0px_0px_0px_13px_#3b71ca] checked:focus:before:transition-[box-shadow_0.2s,transform_0.2s] checked:focus:after:ml-[0.25rem] checked:focus:after:-mt-px checked:focus:after:h-[0.8125rem] checked:focus:after:w-[0.375rem] checked:focus:after:rotate-45 checked:focus:after:rounded-none checked:focus:after:border-[0.125rem] checked:focus:after:border-t-0 checked:focus:after:border-l-0 checked:focus:after:border-solid checked:focus:after:border-white checked:focus:after:bg-transparent"
+                                  type="checkbox"
+                                  id="has_photo" 
+                                  name="has_photo" />
+                                <label
+                                  class="text-gray-700 dark:text-white inline-block pl-[0.15rem] hover:cursor-pointer"
+                                  for="inlineCheckbox1"
+                                  >{% translate "Photo" %}</label
+                                >
+                            </div>
+                            <div class="mb-[0.125rem] mr-4 inline-block min-h-[1.5rem] pl-[1.5rem]">
+                                <input
+                                    onchange="this.form.submit()"
+                                    class="
+                                      relative float-left mt-[0.15rem] mr-[6px] -ml-[1.5rem] h-[1.125rem] w-[1.125rem] appearance-none rounded-[0.25rem] border-[0.125rem] border-solid border-[rgba(0,0,0,0.25)] bg-white before:pointer-events-none before:absolute before:h-[0.875rem] before:w-[0.875rem] before:scale-0 before:rounded-full before:bg-transparent before:opacity-0 before:shadow-[0px_0px_0px_13px_transparent] before:content-[''] checked:border-primary checked:bg-primary checked:before:opacity-[0.16] checked:after:absolute checked:after:ml-[0.25rem] checked:after:-mt-px checked:after:block checked:after:h-[0.8125rem] checked:after:w-[0.375rem] checked:after:rotate-45 checked:after:border-[0.125rem] checked:after:border-t-0 checked:after:border-l-0 checked:after:border-solid checked:after:border-white checked:after:bg-transparent checked:after:content-[''] hover:cursor-pointer hover:before:opacity-[0.04] hover:before:shadow-[0px_0px_0px_13px_rgba(0,0,0,0.6)] focus:shadow-none focus:transition-[border-color_0.2s] focus:before:scale-100 focus:before:opacity-[0.12] focus:before:shadow-[0px_0px_0px_13px_rgba(0,0,0,0.6)] focus:before:transition-[box-shadow_0.2s,transform_0.2s] focus:after:absolute focus:after:z-[1] focus:after:block focus:after:h-[0.875rem] focus:after:w-[0.875rem] focus:after:rounded-[0.125rem] focus:after:bg-white focus:after:content-[''] checked:focus:border-primary checked:focus:bg-primary checked:focus:before:scale-100 checked:focus:before:shadow-[0px_0px_0px_13px_#3b71ca] checked:focus:before:transition-[box-shadow_0.2s,transform_0.2s] checked:focus:after:ml-[0.25rem] checked:focus:after:-mt-px checked:focus:after:h-[0.8125rem] checked:focus:after:w-[0.375rem] checked:focus:after:rotate-45 checked:focus:after:rounded-none checked:focus:after:border-[0.125rem] checked:focus:after:border-t-0 checked:focus:after:border-l-0 checked:focus:after:border-solid checked:focus:after:border-white checked:focus:after:bg-transparent"
+                                      type="checkbox"
+                                      id="is_faceBook" 
+                                      name="is_faceBook" />
+                                <label
+                                  class="text-gray-700 dark:text-white inline-block pl-[0.15rem] hover:cursor-pointer"
+                                  for="inlineCheckbox2"
+                                  >{% translate "FaceBook" %}
+                                </label>
+                            </div>
+                            <div class="mb-[0.125rem] mr-4 inline-block min-h-[1.5rem] pl-[1.5rem]">
+                                <input
+                                    onchange="this.form.submit()"
+                                    class="relative float-left mt-[0.15rem] mr-[6px] -ml-[1.5rem] h-[1.125rem] w-[1.125rem] appearance-none rounded-[0.25rem] border-[0.125rem] border-solid border-[rgba(0,0,0,0.25)] bg-white before:pointer-events-none before:absolute before:h-[0.875rem] before:w-[0.875rem] before:scale-0 before:rounded-full before:bg-transparent before:opacity-0 before:shadow-[0px_0px_0px_13px_transparent] before:content-[''] checked:border-primary checked:bg-primary checked:before:opacity-[0.16] checked:after:absolute checked:after:ml-[0.25rem] checked:after:-mt-px checked:after:block checked:after:h-[0.8125rem] checked:after:w-[0.375rem] checked:after:rotate-45 checked:after:border-[0.125rem] checked:after:border-t-0 checked:after:border-l-0 checked:after:border-solid checked:after:border-white checked:after:bg-transparent checked:after:content-[''] hover:cursor-pointer hover:before:opacity-[0.04] hover:before:shadow-[0px_0px_0px_13px_rgba(0,0,0,0.6)] focus:shadow-none focus:transition-[border-color_0.2s] focus:before:scale-100 focus:before:opacity-[0.12] focus:before:shadow-[0px_0px_0px_13px_rgba(0,0,0,0.6)] focus:before:transition-[box-shadow_0.2s,transform_0.2s] focus:after:absolute focus:after:z-[1] focus:after:block focus:after:h-[0.875rem] focus:after:w-[0.875rem] focus:after:rounded-[0.125rem] focus:after:bg-white focus:after:content-[''] checked:focus:border-primary checked:focus:bg-primary checked:focus:before:scale-100 checked:focus:before:shadow-[0px_0px_0px_13px_#3b71ca] checked:focus:before:transition-[box-shadow_0.2s,transform_0.2s] checked:focus:after:ml-[0.25rem] checked:focus:after:-mt-px checked:focus:after:h-[0.8125rem] checked:focus:after:w-[0.375rem] checked:focus:after:rotate-45 checked:focus:after:rounded-none checked:focus:after:border-[0.125rem] checked:focus:after:border-t-0 checked:focus:after:border-l-0 checked:focus:after:border-solid checked:focus:after:border-white checked:focus:after:bg-transparent"
+                                    type="checkbox"
+                                    id="is_tiktok" 
+                                    name="is_tiktok" />
+                                <label
+                                  class="text-gray-700 dark:text-white inline-block pl-[0.15rem] hover:cursor-pointer"
+                                  for="inlineCheckbox2"
+                                  >{% translate "Tiktok" %}</label
+                                >
+                            </div>
+                            <div class="mb-[0.125rem] mr-4 inline-block min-h-[1.5rem] pl-[1.5rem]">
+                                <input
+                                    onchange="this.form.submit()"
+                                    class="relative float-left mt-[0.15rem] mr-[6px] -ml-[1.5rem] h-[1.125rem] w-[1.125rem] appearance-none rounded-[0.25rem] border-[0.125rem] border-solid border-[rgba(0,0,0,0.25)] bg-white before:pointer-events-none before:absolute before:h-[0.875rem] before:w-[0.875rem] before:scale-0 before:rounded-full before:bg-transparent before:opacity-0 before:shadow-[0px_0px_0px_13px_transparent] before:content-[''] checked:border-primary checked:bg-primary checked:before:opacity-[0.16] checked:after:absolute checked:after:ml-[0.25rem] checked:after:-mt-px checked:after:block checked:after:h-[0.8125rem] checked:after:w-[0.375rem] checked:after:rotate-45 checked:after:border-[0.125rem] checked:after:border-t-0 checked:after:border-l-0 checked:after:border-solid checked:after:border-white checked:after:bg-transparent checked:after:content-[''] hover:cursor-pointer hover:before:opacity-[0.04] hover:before:shadow-[0px_0px_0px_13px_rgba(0,0,0,0.6)] focus:shadow-none focus:transition-[border-color_0.2s] focus:before:scale-100 focus:before:opacity-[0.12] focus:before:shadow-[0px_0px_0px_13px_rgba(0,0,0,0.6)] focus:before:transition-[box-shadow_0.2s,transform_0.2s] focus:after:absolute focus:after:z-[1] focus:after:block focus:after:h-[0.875rem] focus:after:w-[0.875rem] focus:after:rounded-[0.125rem] focus:after:bg-white focus:after:content-[''] checked:focus:border-primary checked:focus:bg-primary checked:focus:before:scale-100 checked:focus:before:shadow-[0px_0px_0px_13px_#3b71ca] checked:focus:before:transition-[box-shadow_0.2s,transform_0.2s] checked:focus:after:ml-[0.25rem] checked:focus:after:-mt-px checked:focus:after:h-[0.8125rem] checked:focus:after:w-[0.375rem] checked:focus:after:rotate-45 checked:focus:after:rounded-none checked:focus:after:border-[0.125rem] checked:focus:after:border-t-0 checked:focus:after:border-l-0 checked:focus:after:border-solid checked:focus:after:border-white checked:focus:after:bg-transparent"
+                                    type="checkbox"
+                                    id="is_pinterest" 
+                                    name="is_pinterest"  />
+                                <label
+                                class="text-gray-700 dark:text-white inline-block pl-[0.15rem] hover:cursor-pointer"
+                                for="inlineCheckbox2"
+                                >{% translate "Pinterest" %}</label>
+                            </div>
+                        </div>
+                        {% comment %} end checkbox filter {% endcomment %}
+                    <div class="grid justify-items-end ...">
+                      <div class="w-64">
+                          <button type="submit" class="w-full block px-8 py-2 leading-5 text-white transition-colors duration-300 transform bg-blue-500 rounded-md hover:bg-blue-600">
+                                {% translate "Search" %}
+                        </button>
+                      </div>
+                    </div>
+            </form>
+        {% comment %} end filter {% endcomment %}
+        <div class="grid grid-cols-1 gap-x-4 gap-y-10 sm:grid-cols-2 lg:grid-cols-3  xl:gap-x-8">
+            {% for video in course.videos.all %}
+                <div class="group relative block overflow-hidden rounded-lg shadow-lg">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center space-x-2">
+                            <div class="-space-y-1">
+                                <h2 class="text-lg text-gray-700 dark:text-white">{{ video.name_of_store|title}}</h2>
+                                <span class='text-base text-gray-700 dark:text-white'>{% translate "Since" %}: {{ video.created_at|date:"N j, Y,"}}</span>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center space-x-3">
+                            {% if video.is_faceBook %}
+                                <button type="button" title="Like post" 
+                                    class="flex     
+                                    items-center justify-center dark:bg-white dark:text-blue-500 
+                                    text-blue-500 hover:text-white hover:bg-blue-500 rounded-full p-1.5">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-facebook " viewBox="0 0 16 16">
+                                        <path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z"/>
+                                    </svg>
+                                </button>
+                            {% endif %}
+                            {% if video.is_tiktok %}
+                                <button type="button" title="Like post" 
+                                    class="flex items-center justify-center hover:bg-white hover:text-[#ff0050] text-white
+                                    bg-[#ff0050] rounded-full p-1.5">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-tiktok" viewBox="0 0 16 16">
+                                        <path d="M9 0h1.98c.144.715.54 1.617 1.235 2.512C12.895 3.389 13.797 4 15 4v2c-1.753 0-3.07-.814-4-1.829V11a5 5 0 1 1-5-5v2a3 3 0 1 0 3 3V0Z"/>
+                                    </svg>
+                                </button>
+                            {% endif %}
+                            {% if video.is_pinterest %}
+                                <button type="button" title="Like post" 
+                                    class="flex items-center justify-center
+                                    bg-[#E60023]  text-white hover:text-[#E60023] hover:bg-white rounded-full p-1.5">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-pinterest" viewBox="0 0 16 16">
+                                        <path d="M8 0a8 8 0 0 0-2.915 15.452c-.07-.633-.134-1.606.027-2.297.146-.625.938-3.977.938-3.977s-.239-.479-.239-1.187c0-1.113.645-1.943 1.448-1.943.682 0 1.012.512 1.012 1.127 0 .686-.437 1.712-.663 2.663-.188.796.4 1.446 1.185 1.446 1.422 0 2.515-1.5 2.515-3.664 0-1.915-1.377-3.254-3.342-3.254-2.276 0-3.612 1.707-3.612 3.471 0 .688.265 1.425.595 1.826a.24.24 0 0 1 .056.23c-.061.252-.196.796-.222.907-.035.146-.116.177-.268.107-1-.465-1.624-1.926-1.624-3.1 0-2.523 1.834-4.84 5.286-4.84 2.775 0 4.932 1.977 4.932 4.62 0 2.757-1.739 4.976-4.151 4.976-.811 0-1.573-.421-1.834-.919l-.498 1.902c-.181.695-.669 1.566-.995 2.097A8 8 0 1 0 8 0z"/>
+                                    </svg>
+                                </button>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-center">
+                        {% if video.has_video %}
+                            <button
+                                class="absolute bg-gray-800 bg-opacity-30 hover:bg-opacity-30 p-4 rounded-full text-white hover:bg-white hover:text-gray-800">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-play-fill" viewBox="0 0 16 16">
+                                    <path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z"/>
+                                </svg>
+                            </button>
+                        {% endif %}
+                        <img
+                        src="{{ video.product_thumbnail.url }}"
+                        alt=""
+                        class="aspect-square rounded-lg  w-full object-cover"
+                        />
+                    </div>
+                    <div class="relative px-3">
+                        <a class="" href="{{ video.get_absolute_url }}">
+                            <h1 class="text-center text-lg font-medium text-gray-700 dark:text-white mt-2">
+                                {{ video.title|title|truncatechars:26  }}
+                            </h1>
+                        </a>
+                        <div class="grid grid-cols-3 text-gray-700 dark:text-white gap-2 ">
+                            <div class="flex flex-col justify-start p-2">
+                                <p class="flex text-lg font-medium">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-hand-thumbs-up-fill mr-2" viewBox="0 0 16 16">
+                                        <path d="M6.956 1.745C7.021.81 7.908.087 8.864.325l.261.066c.463.116.874.456 1.012.965.22.816.533 2.511.062 4.51a9.84 9.84 0 0 1 .443-.051c.713-.065 1.669-.072 2.516.21.518.173.994.681 1.2 1.273.184.532.16 1.162-.234 1.733.058.119.103.242.138.363.077.27.113.567.113.856 0 .289-.036.586-.113.856-.039.135-.09.273-.16.404.169.387.107.819-.003 1.148a3.163 3.163 0 0 1-.488.901c.054.152.076.312.076.465 0 .305-.089.625-.253.912C13.1 15.522 12.437 16 11.5 16H8c-.605 0-1.07-.081-1.466-.218a4.82 4.82 0 0 1-.97-.484l-.048-.03c-.504-.307-.999-.609-2.068-.722C2.682 14.464 2 13.846 2 13V9c0-.85.685-1.432 1.357-1.615.849-.232 1.574-.787 2.132-1.41.56-.627.914-1.28 1.039-1.639.199-.575.356-1.539.428-2.59z"/>
+                                    </svg>
+                                    {{ video.facebook_like|cool_num }}
+                                </p>
+                            </div>
+                            <div class="flex flex-col justify-start p-2">
+                                <p class="flex text-lg font-medium">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-chat-dots-fill mr-2" viewBox="0 0 16 16">
+                                        <path d="M16 8c0 3.866-3.582 7-8 7a9.06 9.06 0 0 1-2.347-.306c-.584.296-1.925.864-4.181 1.234-.2.032-.352-.176-.273-.362.354-.836.674-1.95.77-2.966C.744 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7zM5 8a1 1 0 1 0-2 0 1 1 0 0 0 2 0zm4 0a1 1 0 1 0-2 0 1 1 0 0 0 2 0zm3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+                                    </svg>
+                                    {{ video.facebook_comment|cool_num }}
+                                </p>
+                            </div>
+                            <div class="flex flex-col justify-start p-2">
+                                <p class="flex text-lg font-medium">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-eye-fill mr-2" viewBox="0 0 16 16">
+                                        <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+                                        <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
+                                    </svg>
+                                    {{ video.facebook_views|cool_num }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+      </div>
+    {% else %}
+    <div class="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
+        <p class="text-gray-700 dark:text-white text-center text-2xl">You do not have permission to view this video. Upgrade your subscription to start</p>
+    </div>
+    {% endif %}
+{% endblock content %}

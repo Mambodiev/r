@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block head_title %}{% trans "Account Inactive" %}{% endblock %}
+
+ 
+
+{% block content %}
+<div class="mx-auto max-w-screen-md px-2">
+    <div>
+        <h2 class="mt-6 text-3xl font-extrabold text-center  text-gray-900 dark:text-white">
+           {% trans "Account Inactive" %}
+        </h2>
+        <p class="mt-2 text-lg text-center text-red-600 dark:text-white">
+          {% trans "This account is inactive." %}
+      </p>
+    </div>
+</div>
+
+{% endblock %}
+
+
+{% comment %} 
+{% endblock content %}
+
+{% extends "account/base.html" %}
+
+{% load i18n %}
+
+{% block head_title %}{% trans "Account Inactive" %}{% endblock %}
+
+{% block content %}
+<h1>{% trans "Account Inactive" %}</h1>
+
+<p>{% trans "This account is inactive." %}</p>
+{% endblock %} {% endcomment %}
